@@ -2,10 +2,10 @@ import java.math.BigDecimal;
 
 public class Atm {
 
-	private BigDecimal currentBalance;
+	private Money currentBalance;
 	private String pin;
 
-	public BigDecimal getBalance() {
+	public Money getBalance() {
 		return currentBalance;
 	}
 
@@ -13,21 +13,21 @@ public class Atm {
 		return pin;
 	}
 
-	public Atm(BigDecimal currentBalance, String pin) {
+	public Atm(Money currentBalance, String pin) {
 		this.currentBalance = currentBalance;
 		this.pin = pin;
 	}
 
-	public void deposit(BigDecimal depositAmount) {
-		currentBalance = currentBalance.add(depositAmount);
+	public void deposit(Money depositAmount) {
+		currentBalance.add(depositAmount);
 	}
 
-	public void withdrawl(BigDecimal withdrawlAmount) {
+	public void withdrawl(Money withdrawlAmount) {
 
 		if (isAnIncompatibleWithdrawlValue(withdrawlAmount)) {
-			currentBalance = currentBalance.subtract(new BigDecimal("0.00"));
+			currentBalance.subtract(new Money(new BigDecimal("0.00")));
 		} else {
-			currentBalance = currentBalance.subtract(withdrawlAmount);
+			currentBalance.subtract(withdrawlAmount);
 		}
 	}
 
@@ -41,9 +41,9 @@ public class Atm {
 	}
 
 	// private methods known as helpers
-	private boolean isAnIncompatibleWithdrawlValue(BigDecimal withdrawlAmount) {
-		return withdrawlAmount.compareTo(this.getBalance()) > 0
-				|| withdrawlAmount.remainder(new BigDecimal("10.00")).compareTo(BigDecimal.ZERO) != 0;
+	private boolean isAnIncompatibleWithdrawlValue(Money withdrawlAmount) {
+		return withdrawlAmount.getValue().compareTo(this.getBalance().getValue()) > 0
+				|| withdrawlAmount.getValue().remainder(new BigDecimal("10.00")).compareTo(BigDecimal.ZERO) != 0;
 	}
 
 }
