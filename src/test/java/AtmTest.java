@@ -9,34 +9,34 @@ import org.junit.Test;
 
 public class AtmTest {
 
-	BigDecimal initialBal = new BigDecimal("50.00");
+	Money initialBal = new Money(new BigDecimal("50.00"));
 	Atm underTest = new Atm(initialBal, "1234");
 
 	@Test
 	public void shouldIncreaseBalanceFrom50To100WithDeposit() {
-		underTest.deposit(new BigDecimal("50.00"));
-		BigDecimal check = underTest.getBalance();
+		underTest.deposit(new Money(new BigDecimal("50.00")));
+		BigDecimal check = underTest.getBalance().getValue();
 		assertThat(check, is(new BigDecimal("100.00")));
 	}
 
 	@Test
 	public void shouldDecreaseBalanceFrom50To30WithWithdrawl() {
-		underTest.withdrawl(new BigDecimal("20.00"));
-		BigDecimal check = underTest.getBalance();
+		underTest.withdrawl(new Money(new BigDecimal("20.00")));
+		BigDecimal check = underTest.getBalance().getValue();
 		assertThat(check, is(new BigDecimal("30.00")));
 	}
 
 	@Test
 	public void shouldReturnBalanceOf50WithWithdrawlOf60() {
-		underTest.withdrawl(new BigDecimal("60.00"));
-		BigDecimal check = underTest.getBalance();
+		underTest.withdrawl(new Money(new BigDecimal("60.00")));
+		BigDecimal check = underTest.getBalance().getValue();
 		assertThat(check, is(new BigDecimal("50.00")));
 	}
 
 	@Test
 	public void shouldReturnBalanceOf50WithWithdrawlOf45() {
-		underTest.withdrawl(new BigDecimal("45.00"));
-		BigDecimal check = underTest.getBalance();
+		underTest.withdrawl(new Money(new BigDecimal("45.00")));
+		BigDecimal check = underTest.getBalance().getValue();
 		assertThat(check, is(new BigDecimal("50.00")));
 	}
 

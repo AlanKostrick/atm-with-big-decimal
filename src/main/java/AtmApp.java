@@ -7,7 +7,7 @@ public class AtmApp {
 
 		Scanner input = new Scanner(System.in);
 
-		Atm myAtm = new Atm(new BigDecimal("500.00"), "1234");
+		Atm myAtm = new Atm(new Money(new BigDecimal("500.00")), "1234");
 
 		System.out.println("Please enter your PIN");
 		String userEnteredPin = input.nextLine();
@@ -32,12 +32,12 @@ public class AtmApp {
 			if (userChoice.equals("1")) {
 				System.out.println("How much do you want to deposit:");
 				BigDecimal depositAmount = input.nextBigDecimal();
-				myAtm.deposit(depositAmount);
+				myAtm.deposit(new Money(depositAmount));
 				input.nextLine();
 			} else if (userChoice.equals("2")) {
 				System.out.println("How much do you want to withdrawl");
 				BigDecimal withdrawlAmount = input.nextBigDecimal();
-				myAtm.withdrawl(withdrawlAmount);
+				myAtm.withdrawl(new Money(withdrawlAmount));
 				input.nextLine();
 			} else if (userChoice.equals("3")) {
 				System.out.println("You balance is: " + myAtm.getBalance());
